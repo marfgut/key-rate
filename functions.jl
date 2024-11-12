@@ -147,7 +147,7 @@ end
 # Tasa de clave calculada con el método de min-entropía
 function K_time_min_entropy(d, s, noise_signal)
     t_b = 1.31 * 10^-9
-    lambda = 200000
+    lambda = 2 * 10^5
     PLA = 0.01
     PLB = 0.984
     PCA = 0.6
@@ -192,7 +192,7 @@ end
 function K_space_min_entropy(d, s, noise_signal)
     Δt = 10^-7
     PP = 1
-    lambda = 200000
+    lambda = 2 * 10^5
     PLA = 0.01
     PLB = 0.984
     PCA = 0.6
