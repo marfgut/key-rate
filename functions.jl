@@ -5,12 +5,13 @@ using LinearAlgebra
 import JLD2
 using Ket
 
+# Genera un vector de d + 1 bases MUB para 2 ≤ d ≤ 13. Para d = 6, 10, 12, las bases son solo aproximadamente no sesgadas
 function numerical_mub(d::Int)
     mub_dict = JLD2.load("mubs.jld2")   
     return mub_dict["mubs"][d]
 end
 
-# Usamos bases mub para definir los proyectores E(d) asociados a que Alice y Bob obtengan el mismo resultado 
+# Genera un vector de d + 1 proyectores asociados a que Alice y Bob obtengan el mismo resultado, construidos con las basess MUB
 function E(d)
     E_matrices = [zeros(ComplexF64, d^2, d^2) for _ = 1:d+1]
     mub = numerical_mub(d)
@@ -34,6 +35,7 @@ function isotropo(d, v::Real)
     return v * ketbra(phi) + (1 - v) / d^2 * Matrix(I, d^2, d^2)
 end
 
+# Genera un vector de d + 1 probabilidades de que Alice y Bob obtengan resultados iguales
 function f(d, v)
     prob = zeros(d + 1)
     for k = 1:d+1
@@ -63,7 +65,7 @@ function gauss_radau(m::Int)
     return w, t
 end
 
-# Entropía condicional Alice / Eva
+# Entropía condicional S(Alice/Eva) (límite inferior de la entropía relativa de von Neumann)
 function Sae(m, d, v)
     model = Model()
     set_optimizer(model, Dualization.dual_optimizer(Mosek.Optimizer))
@@ -110,7 +112,7 @@ function Sae(m, d, v)
     return objective_value(model)
 end
 
-# Entropía condicional Alice / Bob
+# Entropía condicional de Shannon H(A/B)
 function Hab(d, v)
     if v == 1 || v == 0
         return 0.0
@@ -145,6 +147,7 @@ function K_time(m, d, noise_signal)
 end
 
 # Tasa de clave calculada con el método de min-entropía
+# Acotamos inferiormente la entropía condicional de von Neumann con la min-entropía condicional
 function K_time_min_entropy(d, s, noise_signal)
     t_b = 1.31 * 10^-9
     lambda = 2 * 10^5
@@ -156,12 +159,9 @@ function K_time_min_entropy(d, s, noise_signal)
 
     T = noise_signal * gamma / (1 - noise_signal)
     v = 1 / (1 + d * t_b * T^2 * gamma^-1) 
-
-    K_iso_tot = (log2(s) - 2 * log2(sqrt(v * d + 1 - v) + 
-    (s - 1)* sqrt(1 - v))) + (v * d + 1 - v) / (v * d + (1 - v) * s) * (log2(v * d + 1 - v)) + 
-    (s - 1) * (1 - v) / (v * d + (1 - v) * s) * log2(1 - v)
-
-    return R_time(d, t_b, T, gamma) * K_iso_tot 
+    
+    Hae_min = -log2((sqrt(v * d + 1 - v) + (d - 1) * sqrt(1 -v))^2 / d^2)
+    return R_time(d, t_b, T, gamma) * (Hae_min - Hab(d, v))
 end
 
 
