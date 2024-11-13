@@ -136,7 +136,7 @@ function K_time(m, d, noise_signal)
     PLB = 0.984
     PCA = 0.6
     PCB = 0.6
-    gamma = lambda * PCA * PCB * (1 - PLA) * (1 - PLB)   # 1140.48
+    gamma = lambda * PCA * PCB * (1 - PLA) * (1 - PLB)   
     
     T = noise_signal * gamma / (1 - noise_signal)
     v = 1 / (1 + d * t_b * T^2 * gamma^-1) 
@@ -152,7 +152,7 @@ function K_time_min_entropy(d, s, noise_signal)
     PLB = 0.984
     PCA = 0.6
     PCB = 0.6
-    gamma = lambda * PCA * PCB * (1 - PLA) * (1 - PLB)   # 1140.48
+    gamma = lambda * PCA * PCB * (1 - PLA) * (1 - PLB)   
 
     T = noise_signal * gamma / (1 - noise_signal)
     v = 1 / (1 + d * t_b * T^2 * gamma^-1) 
@@ -181,7 +181,7 @@ function K_space(m, d, noise_signal)
     PCA = 0.6
     PCB = 0.6
     μ = 500
-    gamma = PP * lambda * PCA * PCB * (1 - PLA) * (1 - PLB)   # 1140.48
+    gamma = PP * lambda * PCA * PCB * (1 - PLA) * (1 - PLB)   
 
     ξ = (μ * (noise_signal - 1) + noise_signal * gamma) / (1 - noise_signal)
     v = (exp(Δt * gamma / d) - 1) / (exp(Δt * gamma / d) - 1 + d * (1 - exp(- Δt * (μ + ξ / d)))^2) 
@@ -198,10 +198,9 @@ function K_space_min_entropy(d, s, noise_signal)
     PCA = 0.6
     PCB = 0.6
     μ = 500
-    gamma = PP * lambda * PCA * PCB * (1 - PLA) * (1 - PLB)   # 1140.48
+    gamma = PP * lambda * PCA * PCB * (1 - PLA) * (1 - PLB)   
     
     ξ = (μ * (noise_signal - 1) + noise_signal * gamma) / (1 - noise_signal)
-
     v = (exp(Δt * gamma / d) - 1) / (exp(Δt * gamma / d) - 1 + d * (1 - exp(- Δt * (μ + ξ / d)))^2) 
 
     K_iso_tot = (log2(s) - 2 * log2(sqrt(v * d + 1 - v) + 
