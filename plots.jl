@@ -22,8 +22,7 @@ function plot_K_time_K_time_min_entropy_vsruido(noise_signal_range, d_values, fi
         end
         
         # Gráfica de "Min-entropía"
-        s = d
-        K_time_min_entropy_vec = K_time_min_entropy.(Ref(d), Ref(s), noise_signal_range)
+        K_time_min_entropy_vec = K_time_min_entropy.(Ref(d), noise_signal_range)
         label_min_entropy = "Min-entropía d = $d"
         
         plot!(noise_signal_range, K_time_min_entropy_vec, label=label_min_entropy, color=colors[i], linestyle=linestyle_minentropy)
@@ -56,8 +55,7 @@ function plot_K_space_K_space_min_entropy(noise_signal_range, d_values, filename
         end
         
         # Gráfica de "Min-entropía"
-        s = d
-        K_space_min_entropy_vec = K_space_min_entropy.(Ref(d), Ref(s), noise_signal_range)
+        K_space_min_entropy_vec = K_space_min_entropy.(Ref(d), noise_signal_range)
         label_min_entropy = "Min-entropía d = $d"
         
         plot!(noise_signal_range, K_space_min_entropy_vec, label=label_min_entropy, color=colors[i], linestyle=linestyle_min_entropy)
