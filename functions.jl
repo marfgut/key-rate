@@ -148,7 +148,7 @@ end
 
 # Tasa de clave calculada con el método de min-entropía
 # Acotamos inferiormente la entropía condicional de von Neumann con la min-entropía condicional
-function K_time_min_entropy(d, s, noise_signal)
+function K_time_min_entropy(d, noise_signal)
     t_b = 1.31 * 10^-9
     lambda = 2 * 10^5
     PLA = 0.01
@@ -189,7 +189,7 @@ function K_space(m, d, noise_signal)
     return R_space(d, Δt, μ, ξ, gamma) * (Sae(m, d, v) - Hab(d, v))
 end
 
-function K_space_min_entropy(d, s, noise_signal)
+function K_space_min_entropy(d, noise_signal)
     Δt = 10^-7
     PP = 1
     lambda = 2 * 10^5
@@ -203,11 +203,6 @@ function K_space_min_entropy(d, s, noise_signal)
     ξ = (μ * (noise_signal - 1) + noise_signal * gamma) / (1 - noise_signal)
     v = (exp(Δt * gamma / d) - 1) / (exp(Δt * gamma / d) - 1 + d * (1 - exp(- Δt * (μ + ξ / d)))^2) 
 
-    K_iso_tot = (log2(s) - 2 * log2(sqrt(v * d + 1 - v) + 
-    (s - 1)* sqrt(1 - v))) + (v * d + 1 - v) / (v * d + (1 - v) * s) * (log2(v * d + 1 - v)) + 
-    (s - 1) * (1 - v) / (v * d + (1 - v) * s) * log2(1 - v)
-
-    K_space_min_entropy = R_space(d, Δt, μ, ξ, gamma) * K_iso_tot 
-
-    return K_space_min_entropy
+    Hae_min = -log2((sqrt(v * d + 1 - v) + (d - 1) * sqrt(1 -v))^2 / d^2)
+    return R_space(d, Δt, μ, ξ, gamma) * (Hae_min - Hab(d, v))
 end
