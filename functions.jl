@@ -5,13 +5,13 @@ using LinearAlgebra
 import JLD2
 using Ket
 
-# Genera un vector de d + 1 bases MUB para 2 ≤ d ≤ 13. Para d = 6, 10, 12, las bases son solo aproximadamente no sesgadas
+# Genera un vector de d + 1 bases MUB para 2 ≤ d ≤ 13. Para d = 6, 10, 12, las bases son solo aproximadamente no sesgadas.
 function numerical_mub(d::Int)
     mub_dict = JLD2.load("mubs.jld2")   
     return mub_dict["mubs"][d]
 end
 
-# Genera un vector de d + 1 proyectores asociados a que Alice y Bob obtengan el mismo resultado, construidos con las bases MUB
+# Genera un vector de d + 1 proyectores asociados a que Alice y Bob obtengan el mismo resultado, construidos con las bases MUB.
 function E(d)
     E_matrices = [zeros(ComplexF64, d^2, d^2) for _ = 1:d+1]
     mub = numerical_mub(d)
@@ -35,7 +35,7 @@ function isotropo(d, v::Real)
     return v * ketbra(phi) + (1 - v) / d^2 * Matrix(I, d^2, d^2)
 end
 
-# Genera un vector de d + 1 probabilidades de que Alice y Bob obtengan resultados iguales
+# Genera un vector de d + 1 probabilidades de que Alice y Bob obtengan resultados iguales.
 function f(d, v)
     prob = zeros(d + 1)
     for k = 1:d+1
