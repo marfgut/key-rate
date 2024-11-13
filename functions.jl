@@ -11,7 +11,7 @@ function numerical_mub(d::Int)
     return mub_dict["mubs"][d]
 end
 
-# Genera un vector de d + 1 proyectores asociados a que Alice y Bob obtengan el mismo resultado, construidos con las basess MUB
+# Genera un vector de d + 1 proyectores asociados a que Alice y Bob obtengan el mismo resultado, construidos con las bases MUB
 function E(d)
     E_matrices = [zeros(ComplexF64, d^2, d^2) for _ = 1:d+1]
     mub = numerical_mub(d)
