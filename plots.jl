@@ -1,7 +1,7 @@
 include("functions.jl")
 using Plots
 
-function plot_K_time_K_time_min_entropy_vsruido(noise_signal_range, d_values, filename)
+function plot_K_time_K_time_min_entropy_vs_ruido(noise_signal_range, d_values, filename)
     colors = [:magenta3, :green2, :blue, :brown3, :cyan, :black, :red]
     linestyle_minentropy = :dash
     
@@ -32,7 +32,7 @@ function plot_K_time_K_time_min_entropy_vsruido(noise_signal_range, d_values, fi
     savefig(filename)
 end
 
-function plot_K_space_K_space_min_entropy(noise_signal_range, d_values, filename)
+function plot_K_space_K_space_min_entropy_vs_ruido(noise_signal_range, d_values, filename)
     colors = [:magenta3, :green2, :blue, :brown3, :blue, :cyan, :black, :red]
     linestyle_min_entropy = :dash
     
