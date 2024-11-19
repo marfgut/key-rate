@@ -9,7 +9,7 @@ function plot_K_time_K_time_min_entropy_vs_ruido(noise_signal_range, d_values, f
 
     for (i, d) in enumerate(d_values)
         # Gráfica de "Nuestro método"
-        K_time_vec = K_time.(Ref(4), Ref(d), noise_signal_range)
+        K_time_vec = K_time.(Ref(6), Ref(d), noise_signal_range)
         label = "Nuestro método d = $d"  
         if first_plot
             plot(noise_signal_range, K_time_vec, label=label, color=colors[i], legend=true, ylim=(0, 2500),
@@ -40,7 +40,7 @@ function plot_K_space_K_space_min_entropy_vs_ruido(noise_signal_range, d_values,
 
     for (i, d) in enumerate(d_values)
         # Gráfica de "Nuestro método"
-        K_space_vec = K_space.(Ref(4), Ref(d), noise_signal_range)
+        K_space_vec = K_space.(Ref(6), Ref(d), noise_signal_range)
         label = "Nuestro método d = $d"  
         if first_plot
             plot(noise_signal_range, K_space_vec, label=label, color=colors[i], legend=true, ylim=(0, 2500),
