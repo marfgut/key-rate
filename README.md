@@ -5,3 +5,4 @@ This repository contains Julia code for calculating the key rate in quantum key 
 - `functions.jl`: Contains the main code, where all the necessary functions for performing the calculations are defined.
 - `plots.jl`: Contains scripts for generating plots to visualize the results obtained in `functions.jl`.
 - `mub.jld2`: Contains the mutually unbiased bases for dimensions 2 through 13. For dimensions 6, 10, and 12, the bases are only approximately unbiased.
+- `document.pdf`: This is the written version of my Bachelor's thesis. It serves as a complete reference for understanding the context, methodology, and conclusions of this work.
